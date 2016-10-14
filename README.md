@@ -63,32 +63,32 @@ We typically explored the data using the Impala query editor in Hue. Once the da
 Contains notebooks which cover the creation of the predictive model and cross validation.
 
 #### create_modeling_table.ipynb
-    Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours). 
-    Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
+Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours). 
+Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
 
 #### fix_modeling_table.ipynb
-    In some cases, the create_modeling_table scripts would run but would not condense values for 
+In some cases, the create_modeling_table scripts would run but would not condense values for 
 
 #### modeling_base.ipynb
-    The main notebook for modeling.
+The main notebook for modeling.
 
 #### modeling_diff_algorithms.ipynb
-    Exploring different modeling algorithms -- for reference only
+Exploring different modeling algorithms -- for reference only
 
 #### modeling_sparseCO2.ipynb; modeling_sparseGCS.ipynb
-    These use the subset of available data which include CO2 or Glasgow Coma Score (GCS). To show that these two (particularly CO2) have predictive potential.
+These use the subset of available data which include CO2 or Glasgow Coma Score (GCS). To show that these two (particularly CO2) have predictive potential.
 
 #### RunModelOnExamplePatients.ipynb
-    Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to 
+Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to 
 
 #### gbc_base.compressed
-    The saved model file, in sklearn's [joblib](http://scikit-learn.org/stable/modules/model_persistence.html) format.
+The saved model file, in sklearn's [joblib](http://scikit-learn.org/stable/modules/model_persistence.html) format.
 
 #### NonRRT_modeling_table_13hr_raw.p
-    A pickled pandas dataframe of the modeling table for a subset of patients without RRT events.
+A pickled pandas dataframe of the modeling table for a subset of patients without RRT events.
 
 #### RRT_modeling_table_13hr_raw.p
-    A picked pandas dataframe of the modeling table for patients with RRT events.
+A picked pandas dataframe of the modeling table for patients with RRT events.
 
 
 
@@ -96,26 +96,25 @@ Contains notebooks which cover the creation of the predictive model and cross va
 Contains notebooks which cover Exploratory Data Analysis of the data.
 
 #### encounter_durations[EDA].ipynb
-    Explores encounter durations for patients with and without RRT events. 
-    Explores subselection of patients without RRT events who have similar encounter durations to patients with RRT events.
+Explores encounter durations for patients with and without RRT events. Explores subselection of patients without RRT events who have similar encounter durations to patients with RRT events.
 
 #### explore_vitals_by_encounter[EDA].ipynb
-    Creates time series of vitals signs for RRT patients which indicate time of RRT.
+Creates time series of vitals signs for RRT patients which indicate time of RRT.
 
 #### medications[EDA].ipynb
-    Explores the number of patients taking different kinds of medications, and how that breaks down for patients with and without RRT events
+Explores the number of patients taking different kinds of medications, and how that breaks down for patients with and without RRT events
 
 #### multi_rrts[EDA].ipynb
-    Explores patients with multiple RRT events. Only text output.
+Explores patients with multiple RRT events. Only text output.
 
 #### probe_encounter_types_classes[EDA].ipynb
-    Examine breakdowns of different patient/encounter types. Only text output.
+Examine breakdowns of different patient/encounter types. Only text output.
 
 #### rrt_reasons[EDA].ipynb
-    Explore the reasons for RRT events & their frequencies
+Explore the reasons for RRT events & their frequencies
 
 #### vitals_avg_over_visit[EDA].ipynb
-    Compare if patients with RRTs have different average vitals than patients without RRTs, visually.
+Compare if patients with RRTs have different average vitals than patients without RRTs, visually.
     
 ## ETL-queries
 
