@@ -3,6 +3,11 @@
 ## Overview
 ### Below is the file structure of the tech-transfer
 
+# Overview
+
+### Below is the file structure of the tech-transfer
+
+```
 tech-transfer
 │   OVERVIEW.ipynb    
 │
@@ -47,18 +52,7 @@ tech-transfer
     |   med_hist_RRT_non-event_med_hr_bucket.sql.txt
     |   MostFrequentVitalsWLoc.sql.txt
     |   PersonQuery_KnownPersonID.sql.txt
-Approach to work
-We typically explored the data using the Impala query editor in Hue. Once the data of interest were initially identified, we then ran such queries and worked with the results in jupyter notebooks.
-notebooks
-This section talks about what is in each of the notebooks and why we did what we did
-modeing (subfolder)
-Contains notebooks which cover the creation of the predictive model and cross validation.
-create_modeling_table.ipynb
-Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours). 
-Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
-
-fix_modeling_table.ipynb
-In some cases, the create_modeling_table scripts would run but would not condense values for 
+```
 
 modeling_base.ipynb
 The main notebook for modeling.
