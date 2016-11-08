@@ -63,11 +63,11 @@ We typically explored the data using the Impala query editor in Hue. Once the da
 Contains notebooks which cover the creation of the predictive model and cross validation.
 
 #### create_modeling_table.ipynb
-Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours). 
+Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours).
 Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
 
 #### fix_modeling_table.ipynb
-In some cases, the create_modeling_table scripts would run but would not condense values for 
+In some cases, the create_modeling_table scripts would run but would not condense values for
 
 #### modeling_base.ipynb
 The main notebook for modeling.
@@ -79,7 +79,7 @@ Exploring different modeling algorithms -- for reference only
 These use the subset of available data which include CO2 or Glasgow Coma Score (GCS). To show that these two (particularly CO2) have predictive potential.
 
 #### RunModelOnExamplePatients.ipynb
-Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to 
+Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to
 
 #### gbc_base.compressed
 The saved model file, in sklearn's [joblib](http://scikit-learn.org/stable/modules/model_persistence.html) format.
@@ -115,7 +115,7 @@ Explore the reasons for RRT events & their frequencies
 
 #### vitals_avg_over_visit[EDA].ipynb
 Compare if patients with RRTs have different average vitals than patients without RRTs, visually.
-    
+
 ## ETL-queries
 
 ### We used the Impala Editor via Cloudera Hue to run queries on and explore the data. Queries which were not included in the notebooks are saved in this folder.
@@ -142,11 +142,27 @@ Compare if patients with RRTs have different average vitals than patients withou
 |<b>demo_scores</b> | Join rows in scoring table to associated encounter and patient. | demo |
 | <b>demo_scores_with_changes</b> | Show changes in score and feature values across sequential rows in scoring table. | demo |
 ||||
-|<b>MostFrequentVitalsWLoc</b> | Returns counts for potentially useful vitals signs | vitals | 
-|<b> DrugName_to_DrugCategory</b> | Return drug id and drug category given a partial drug name | drugs | 
+|<b>MostFrequentVitalsWLoc</b> | Returns counts for potentially useful vitals signs | vitals |
+|<b> DrugName_to_DrugCategory</b> | Return drug id and drug category given a partial drug name | drugs |
 |<b> DrugCategories</b> | Show all the different drug categorizations | drugs |
 |<b> Count_MedCategory</b> | Count the number of encounters where patients are taking various drug classes | drugs |
 |<b> Compare_arrival_depart_times</b> | Output the different timestamps associated with an encounter | time |
 |<b> PersonQuery_KnownPersonID</b> | Return info related to person, given a personid | person info |
 
 
+### Caveats and notes
+
+##### - The time of the RRT event (if applicable) was recorded in the field "event_end_dt_tm" in the clinical_event table.
+
+##### - We discovered partway through the process that not all arrival time information was recorded consistently in the encounters table. Sometimes, "arrival_dt_tm" field in the encounters table was overwritten with the time a patient became an inpatient in the facility, rather than the true time of arrival. To get true time of arrival, we need to join to the tracking_item and tracking_checkin tables. Below is an example of querying for the encounter id and the true arrival time. The MIN in the subquery is to select only one timestamp, as some records contained duplicate entries.
+
+```sql
+SELECT enc.encntr_id, COALESCE(tci.checkin_dt_tm, enc.arrive_dt_tm) AS check_in_time
+FROM encounter enc
+INNER JOIN clinical_event ce
+ON ce.encntr_id = enc.encntr_id
+LEFT OUTER JOIN  ( SELECT ti.encntr_id AS encntr_id, MIN(tc.checkin_dt_tm)  AS checkin_dt_tm
+    FROM tracking_item ti
+  JOIN tracking_checkin  tc ON  ti.tracking_id  = tc.tracking_id
+GROUP BY ti.encntr_id ) tci
+ON tci.encntr_id = enc.encntr_id```
