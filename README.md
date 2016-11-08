@@ -152,6 +152,8 @@ Compare if patients with RRTs have different average vitals than patients withou
 
 ### Caveats and notes
 
+##### We relied on the [impyla](https://github.com/cloudera/impyla/blob/master/README.md) and [ibis](http://www.ibis-project.org/) packages to pull data from HDFS to the jupyter notebook, and to write back to the tables.
+
 ##### - The time of the RRT event (if applicable) was recorded in the field "event_end_dt_tm" in the clinical_event table.
 
 ##### - We discovered partway through the process that not all arrival time information was recorded consistently in the encounters table. Sometimes, "arrival_dt_tm" field in the encounters table was overwritten with the time a patient became an inpatient in the facility, rather than the true time of arrival. To get true time of arrival, we need to join to the tracking_item and tracking_checkin tables. Below is an example of querying for the encounter id and the true arrival time. The MIN in the subquery is to select only one timestamp, as some records contained duplicate entries.
