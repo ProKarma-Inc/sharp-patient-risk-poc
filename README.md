@@ -6,7 +6,10 @@
 
 ```
 tech-transfer
-│   OVERVIEW.ipynb    
+|   README.md
+│   OVERVIEW.ipynb
+|   Sharp-Intel-Technology-Transfer-Workshop.pdf
+|   sharppatientrisk.yml
 │
 └───notebooks
 │   └───modeling
@@ -59,7 +62,7 @@ We typically explored the data using the Impala query editor in Hue. Once the da
 
 ### This section talks about what is in each of the notebooks and why we did what we did
 
-## modeing (subfolder)
+## modeling (subfolder)
 Contains notebooks which cover the creation of the predictive model and cross validation.
 
 #### create_modeling_table.ipynb
@@ -150,14 +153,14 @@ Compare if patients with RRTs have different average vitals than patients withou
 |<b> PersonQuery_KnownPersonID</b> | Return info related to person, given a personid | person info |
 
 
-### Caveats and notes
+### Environment and notes
 
 ##### Environment and install: We recommmend users install the [Anaconda scientific python distribution](https://www.continuum.io/downloads). We used python v2.7. We relied on the [impyla](https://github.com/cloudera/impyla/blob/master/README.md) and [ibis](http://www.ibis-project.org/) packages to pull data from HDFS to the jupyter notebook, and to write back to the tables. Other dependencies include: pandas, numpy, matplotlib, scikit-learn, cPickle, and seaborn. The dependencies are included in the "sharppatientrisk.yml" environment file. The environment can be loaded by the command:
 ```conda env create -f sharppatientrisk.yml```
 
-##### - The time of the RRT event (if applicable) was recorded in the field "event_end_dt_tm" in the clinical_event table.
+##### - The times of RRT events (and all events from the clinical_event table) was recorded in the field "event_end_dt_tm" in the clinical_event table. This is an example where it is very important to have good relationships with your subject matter experts. This field records when the event took place, not the time of the end of the event.
 
-##### - We discovered partway through the process that not all arrival time information was recorded consistently in the encounters table. Sometimes, "arrival_dt_tm" field in the encounters table was overwritten with the time a patient became an inpatient in the facility, rather than the true time of arrival. To get true time of arrival, we need to join to the tracking_item and tracking_checkin tables. Below is an example of querying for the encounter id and the true arrival time. The MIN in the subquery is to select only one timestamp, as some records contained duplicate entries.
+##### - We discovered partway through the process that not all arrival time information was recorded consistently in the encounters table. Sometimes, "arrival_dt_tm" field in the encounters table was overwritten with the time a patient became an inpatient in the facility, rather than the true time of arrival. To get true time of arrival, we need to join to the tracking_item and tracking_checkin tables. Below is an example of querying for the encounter id and the true arrival time. The MIN in the subquery is to select only one timestamp, as some records contained duplicate entries. The difference in arrival time may or may not be relevant to the question at hand.
 
 ```
 SELECT enc.encntr_id, COALESCE(tci.checkin_dt_tm, enc.arrive_dt_tm) AS check_in_time
