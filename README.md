@@ -119,7 +119,37 @@ Explore the reasons for RRT events & their frequencies
 #### vitals_avg_over_visit[EDA].ipynb
 Compare if patients with RRTs have different average vitals than patients without RRTs, visually.
 
-## ETL-queries
+## Features used & mapping to Cerner records (data dictionary)
+- Join clinical_event values to code_value table to see description
+- Some modeling features reference multiple Cerner fields
+- We create separate "recent" and "average" features for vitals signs taken during the time frame of interest.
+
+| feature description (final feature in model) | feature type| Cerner table | Cerner field |
+|---|---|---|--|
+| Mean Arterial Pressure (MAP)| vital sign | clinical_event | event_cd = 703306 |
+| Systolic Blood Pressure (SBP)| vital sign | clinical_event | event_cd = 703501 |
+| Peripheral Pulse Rate (pulse)|  vital sign |clinical_event | event_cd = 703511 |
+| Diastolic Blood Pressure (DPB)|  vital sign |clinical_event | event_cd = 703516 |
+| Respiratory Rate (RR)|  vital sign |clinical_event | event_cd = 703540 |
+| Temperature Oral (temp) | vital sign | clinical_event | event_cd = 703558 |
+| Height/length (obese) | vital sign | clinical_event | event_cd = 2700653 |
+| SpO2 (SPO2)| vital sign | clinical_event | event_cd = 3623994 |
+| Measured Weight (obese) |  vital sign |clinical_event | event_cd = 4674677 |
+| smoking code (smoker)| patient info | clinical_event | event_cd = 75144985 |
+| On IV indicator (on_iv)| patient info | clinical_event | event_cd = 679984 |
+| buprenorphine-naloxone (bu-nal) | medication | clinical_event | event_cd = 2797130 |
+| naloxone (bu-nal)| medication | clinical_event | event_cd = 2798305 |
+| buprenorphine (bu-nal)| medication | clinical_event | event_cd = 2797129 |
+| narcotic analgesic (narcotics) | medication | mltm_drug_categories | multum_category_id = 60 |
+| narcotic analgesic combination (narcotics) | medication | mltm_drug_categories | multum_category_id = 191 |
+| antipsychotics (antipsychotics)| medication | mltm_drug_categories | multum_category_id = 77, 210, 251, 341 |
+| chemo drugs (chemo) | medication | mltm_drug_categories | multum_category_id = 20, 21, 22, 23, 24, 25, 26 |
+| anticoagulants (anticoagulants) | medication | mltm_drug_categories | multum_category_id = 261, 262, 283, 285 |
+| age | patient info | person | age |
+| sex (is_male)| patient info | person | sex |
+
+
+# ETL-queries
 
 ### We used the Impala Editor via Cloudera Hue to run queries on and explore the data. Queries which were not included in the notebooks are saved in this folder.
 #### Queries are saved as .txt so files will open on jupyter.
@@ -153,7 +183,7 @@ Compare if patients with RRTs have different average vitals than patients withou
 |<b> PersonQuery_KnownPersonID</b> | Return info related to person, given a personid | person info |
 
 
-### Environment and notes
+# Environment and notes
 
 ##### Environment and install: We recommmend users install the [Anaconda scientific python distribution](https://www.continuum.io/downloads). We used python v2.7. We relied on the [impyla](https://github.com/cloudera/impyla/blob/master/README.md) and [ibis](http://www.ibis-project.org/) packages to pull data from HDFS to the jupyter notebook, and to write back to the tables. Other dependencies include: pandas, numpy, matplotlib, scikit-learn, cPickle, and seaborn. The dependencies are included in the "sharppatientrisk.yml" environment file. The environment can be loaded by the command:
 ```conda env create -f sharppatientrisk.yml```
