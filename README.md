@@ -125,7 +125,7 @@ Compare if patients with RRTs have different average vitals than patients withou
 - We create separate "recent" and "average" features for vitals signs taken during the time frame of interest.
 
 | feature description (final feature in model) | feature type| Cerner table | Cerner field |
-|---|---|---|--|
+|---|---|---|---|
 | Mean Arterial Pressure (MAP)| vital sign | clinical_event | event_cd = 703306 |
 | Systolic Blood Pressure (SBP)| vital sign | clinical_event | event_cd = 703501 |
 | Peripheral Pulse Rate (pulse)|  vital sign |clinical_event | event_cd = 703511 |
@@ -147,6 +147,7 @@ Compare if patients with RRTs have different average vitals than patients withou
 | anticoagulants (anticoagulants) | medication | mltm_drug_categories | multum_category_id = 261, 262, 283, 285 |
 | age | patient info | person | age |
 | sex (is_male)| patient info | person | sex |
+
 
 
 # ETL-queries
