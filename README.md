@@ -10,6 +10,7 @@ tech-transfer
 │   OVERVIEW.ipynb
 |   Sharp-Intel-Technology-Transfer-Workshop.pdf
 |   sharppatientrisk.yml
+|   datamodel.zip
 │
 └───notebooks
 │   └───modeling
@@ -57,6 +58,7 @@ tech-transfer
 ## Approach to work
 We typically explored the data using the Impala query editor in Hue. Once the data of interest were initially identified, we then ran such queries and worked with the results in jupyter notebooks.
 
+datamodel.zip is a zip file of the Cerner data dictionary.
 
 # notebooks
 
