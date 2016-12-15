@@ -1,0 +1,10 @@
+firstName,age,obsNum,riskScore,scoreChange,pulseRecent,pulseRecentChange,pulseMean,pulseMeanChange,respRateMean,respRateMeanChange
+Vanessa,32,1,9,NULL,110,NULL,110,NULL,19,NULL
+Vanessa,32,2,9,0,78,-32,86,-28,19,0
+Vanessa,32,3,10,0,77,-1,80,-7,18,-1
+Lawrence,59,1,10,NULL,91,NULL,90,NULL,22,NULL
+Lawrence,59,2,10,0,88,-3,89,0,18,-3
+Lawrence,59,3,9,-1,79,-9,79,-10,18,0
+Virgilio,87,1,8,NULL,84,NULL,79,NULL,18,NULL
+Virgilio,87,2,10,2,109,25,102,23,21,3
+Virgilio,87,3,9,-1,107,-2,90,-12,21,0
