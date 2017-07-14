@@ -17,7 +17,7 @@ python pipeline/src/training_pipeline.py \
         output_table_name=new_hive_table \
         csv_file_name=my_csv.csv
 ```
-`host`, `port`, `database`, and `query_dir` are all required arguments. If one of arguments: `output_table_name` or `csv_file_name` is not passed then you must pass the other. The `output_table_name` argument is the name of a Hive table that you want the training data written to and `csv_file_name` is the location/name of a local file that you want the results written to. 
+`host`, `port`, `database`, and `query_dir` are all required arguments. If one of arguments: `output_table_name` or `csv_file_name` is not passed then you must pass the other. The `output_table_name` argument is the name of a Hive table that you want the training data written to and `csv_file_name` is the location/name of a local file that you want the the training data written to. 
 
 # To Do
 
