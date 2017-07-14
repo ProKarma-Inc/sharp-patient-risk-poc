@@ -4,7 +4,7 @@ import numpy as np
 from impala.util import as_pandas
 from impala.dbapi import connect
 
-# These two libraries are the custom
+# These two libraries are the custom ones
 from pre_processing import *
 from my_impala_utils import create_modeling_table, insert_pandas_to_impala
 
