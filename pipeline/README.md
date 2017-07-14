@@ -13,7 +13,7 @@ python pipeline/src/training_pipeline.py \
         host=mycluster.domain.com \
         port=my_impala_port_number \
         database=my_hive_db \
-        query_dir=../queries \
+        query_dir=pipeline/queries \
         output_table_name=new_hive_table \
         csv_file_name=my_csv.csv
 ```
