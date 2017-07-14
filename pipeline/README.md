@@ -23,3 +23,5 @@ python pipeline/src/training_pipeline.py \
 
 1. Add a way to accept a Hive schema as an input, rather than having the schema hard-coded into training_pipeline.py
 2. Creating a more robust argument parser to ensure the command line arguments passed to training_pipeline.py are the correct ones.
+3. Parameterize the time windows of the Impala queries. Currently the queries are hard-coded to collect data from the t-minus 13 hr to the t-minus 1 hr window. This will allow users to experiment with other windows of data collection and different target windows for predicting adverse events.
+
