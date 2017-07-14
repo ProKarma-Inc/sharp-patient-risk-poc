@@ -4,7 +4,7 @@ The pipeline builds the training dataset from the Cerner EMR system.
 
 It is a Python script that runs a series of Impala queries to obtain the necessary data. The resulting data is processed and cleaned in Pandas before being output to either Hive or locally as a CSV file.
 
-**Note:** The medications data are presented in the pipeline output as integer counts of the number of times a medication was taken in the preceding 12-hour window. We trainied our model with medications data represented as categorical variables that indicate if the particular medication had been administered or not (0 for not administered or 1 for administered). 
+**Note:** The medications data are presented in the pipeline output as integer counts of the number of times a medication was taken in the 12-hour window preceeding an RRT event. This is in contrast to how we trained our model. We represented medications data as categorical variables that indicate if the particular medication had been administered or not (0 for not administered or 1 for administered). See page 6 of the implementation guide for more discussion on this topic.
 
 # Usage
 
