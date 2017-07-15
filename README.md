@@ -33,16 +33,9 @@ tech-transfer
 └───notebooks
 |   |
 │   └───modeling
-|   │     - create_modeling_table.ipynb
-|   │     - fix_modeling_table.ipynb
 |   │     - modeling_base.ipynb
 |   |     - modeling_diff_algorithms.ipynb
-|   |     - modeling_sparseCO2.ipynb
-|   |     - modeling_sparseGCS.ipynb
 |   |     - RunModelOnExamplePatients.ipynb
-|   |     - gbc_base.compressed
-|   |     - NonRRT_modeling_table_13hr_raw.p
-|   |     - RRT_modeling_table_13hr_raw.p
 │   │
 │   └───EDA
 │         - encounter_durations[EDA].ipynb
