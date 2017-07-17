@@ -79,6 +79,12 @@ datamodel.zip is a zip file of the Cerner data dictionary.
 
 ### This section talks about what is in each of the notebooks and why we did what we did
 
+## analytics_helpers (subfolder)
+Contains analytics_helpers.py
+
+#### analytics_helpers.py
+A python library that contains useful helper functions for exploratory analysis, data cleaning, and visualization.
+
 ## modeling (subfolder)
 Contains notebooks which cover the creation of the predictive model and cross validation.
 
