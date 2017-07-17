@@ -6,53 +6,68 @@
 
 ```
 tech-transfer
-|   README.md
-│   OVERVIEW.ipynb
-|   Sharp-Intel-Technology-Transfer-Workshop.pdf
-|   sharppatientrisk.yml
-|   datamodel.zip
+|   - README.md
+│   - OVERVIEW.ipynb
+|   - Sharp-Intel-Technology-Transfer-Workshop.pdf
+|   - sharppatientrisk.yml
+|   - datamodel.zip
 │
+└───pipeline
+|    |
+|    └───src
+|    |     - pre_processing.py
+|    |     - my_impala_utils.py
+|    |     - training_pipeline.py
+|    |
+|    └───queries
+|         - rrt-info.sql
+|         - rrt-most-recent-chart-value.sql
+|         - rrt-avg-chart-value.sql
+|         - rrt-patient-characteristics.sql
+|         - rrt-on-medications.sql
+|         - non-rrt-most-recent.sql
+|         - non-rrt-avg-chart-value.sql
+|         - non-rrt-patient-characteristics.sql
+|         - non-rrt-on-medications.sql
+|
 └───notebooks
+|   |   
+│   └───analytics_helpers
+|   │     - analytics_helpers.py
+|   |
 │   └───modeling
-|   │   │   create_modeling_table.ipynb
-|   │   │   fix_modeling_table.ipynb
-|   │   │   modeling_base.ipynb
-|   |   |   modeling_diff_algorithms.ipynb
-|   |   |   modeling_sparseCO2.ipynb
-|   |   |   modeling_sparseGCS.ipynb
-|   |   |   RunModelOnExamplePatients.ipynb
-|   |   |   gbc_base.compressed
-|   |   |   NonRRT_modeling_table_13hr_raw.p
-|   |   |   RRT_modeling_table_13hr_raw.p
+|   │     - modeling_base.ipynb
+|   |     - modeling_diff_algorithms.ipynb
+|   |     - RunModelOnExamplePatients.ipynb
 │   │
 │   └───EDA
-│       │   encounter_durations[EDA].ipynb
-│       │   explore_vitals_by_encounter[EDA].ipynb
-|       |   medications[EDA].ipynb
-|       |   multi_rrts[EDA].ipynb
-|       |   probe_encounter_types_classes[EDA].ipynb
-|       |   rrt_reasons[EDA].ipynb
-│       │   vitals_avg_over_visit[EDA].ipynb
+│         - encounter_durations[EDA].ipynb
+│         - explore_vitals_by_encounter[EDA].ipynb
+|         - medications[EDA].ipynb
+|         - multi_rrts[EDA].ipynb
+|         - probe_encounter_types_classes[EDA].ipynb
+|         - rrt_reasons[EDA].ipynb
+│         - vitals_avg_over_visit[EDA].ipynb
 │   
 └───etl-queries
-    │   Compare_arrival_depart_times.sql.txt
-    │   Count_MedCategory.sql.txt
-    |   demo_scores.sql.txt
-    |   demo_scores_with_changes.sql.txt
-    |   DrugCategories.sql.txt
-    |   DrugName_to_DrugCategory.sql.txt
-    |   encounter_location_history.sql.txt
-    |   encounter_location_history_pairs.sql.txt
-    |   med_hist_encntr_med_admin.sql.txt
-    |   med_hist_encntr_med_admin_hr_cnt.sql.txt
-    |   med_hist_RRT_event.sql.txt
-    |   med_hist_RRT_event_distinct_med_hr_bucket.sql.txt
-    |   med_hist_RRT_event_med_hr_bucket.sql.txt
-    |   med_hist_RRT_non-event.sql.txt
-    |   med_hist_RRT_non-event_distinct_med_hr_bucket.sql.txt
-    |   med_hist_RRT_non-event_med_hr_bucket.sql.txt
-    |   MostFrequentVitalsWLoc.sql.txt
-    |   PersonQuery_KnownPersonID.sql.txt
+       - Compare_arrival_depart_times.sql.txt
+       - Count_MedCategory.sql.txt
+       - demo_scores.sql.txt
+       - demo_scores_with_changes.sql.txt
+       - DrugCategories.sql.txt
+       - DrugName_to_DrugCategory.sql.txt
+       - encounter_location_history.sql.txt
+       - encounter_location_history_pairs.sql.txt
+       - med_hist_encntr_med_admin.sql.txt
+       - med_hist_encntr_med_admin_hr_cnt.sql.txt
+       - med_hist_RRT_event.sql.txt
+       - med_hist_RRT_event_distinct_med_hr_bucket.sql.txt
+       - med_hist_RRT_event_med_hr_bucket.sql.txt
+       - med_hist_RRT_non-event.sql.txt
+       - med_hist_RRT_non-event_distinct_med_hr_bucket.sql.txt
+       - med_hist_RRT_non-event_med_hr_bucket.sql.txt
+       - MostFrequentVitalsWLoc.sql.txt
+       - PersonQuery_KnownPersonID.sql.txt
 ```
 
 ## Approach to work
@@ -64,15 +79,14 @@ datamodel.zip is a zip file of the Cerner data dictionary.
 
 ### This section talks about what is in each of the notebooks and why we did what we did
 
+## analytics_helpers (subfolder)
+Contains analytics_helpers.py
+
+#### analytics_helpers.py
+A python library that contains useful helper functions for exploratory analysis, data cleaning, and visualization.
+
 ## modeling (subfolder)
 Contains notebooks which cover the creation of the predictive model and cross validation.
-
-#### create_modeling_table.ipynb
-Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours).
-Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
-
-#### fix_modeling_table.ipynb
-In some cases, the create_modeling_table scripts would run but would not condense values for
 
 #### modeling_base.ipynb
 The main notebook for modeling.
@@ -80,20 +94,12 @@ The main notebook for modeling.
 #### modeling_diff_algorithms.ipynb
 Exploring different modeling algorithms -- for reference only
 
-#### modeling_sparseCO2.ipynb; modeling_sparseGCS.ipynb
-These use the subset of available data which include CO2 or Glasgow Coma Score (GCS). To show that these two (particularly CO2) have predictive potential.
 
 #### RunModelOnExamplePatients.ipynb
 Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to
 
 #### gbc_base.compressed
 The saved model file, in sklearn's [joblib](http://scikit-learn.org/stable/modules/model_persistence.html) format.
-
-#### NonRRT_modeling_table_13hr_raw.p
-A pickled pandas dataframe of the modeling table for a subset of patients without RRT events.
-
-#### RRT_modeling_table_13hr_raw.p
-A picked pandas dataframe of the modeling table for patients with RRT events.
 
 
 
