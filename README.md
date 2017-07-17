@@ -31,6 +31,9 @@ tech-transfer
 |         - non-rrt-on-medications.sql
 |
 └───notebooks
+|   |   
+│   └───analytics_helpers
+|   │     - analytics_helpers.py
 |   |
 │   └───modeling
 |   │     - modeling_base.ipynb
@@ -79,33 +82,18 @@ datamodel.zip is a zip file of the Cerner data dictionary.
 ## modeling (subfolder)
 Contains notebooks which cover the creation of the predictive model and cross validation.
 
-#### create_modeling_table.ipynb
-Create modeling tables from the EMR, for patients with and without RRT events. Currently very time intensive to run (on the order of hours).
-Modeling tables condensing data from 13 hours - 1 hour before the RRT event (or non-event) were saved for easy reference (see below).
-
-#### fix_modeling_table.ipynb
-In some cases, the create_modeling_table scripts would run but would not condense values for
-
 #### modeling_base.ipynb
 The main notebook for modeling.
 
 #### modeling_diff_algorithms.ipynb
 Exploring different modeling algorithms -- for reference only
 
-#### modeling_sparseCO2.ipynb; modeling_sparseGCS.ipynb
-These use the subset of available data which include CO2 or Glasgow Coma Score (GCS). To show that these two (particularly CO2) have predictive potential.
 
 #### RunModelOnExamplePatients.ipynb
 Extracts a small subset of patients, collects their statistics into a modeling tables based on different timeframes, loads the saved model, uses model to generate risk scores, then writes the scores and modeling tables to
 
 #### gbc_base.compressed
 The saved model file, in sklearn's [joblib](http://scikit-learn.org/stable/modules/model_persistence.html) format.
-
-#### NonRRT_modeling_table_13hr_raw.p
-A pickled pandas dataframe of the modeling table for a subset of patients without RRT events.
-
-#### RRT_modeling_table_13hr_raw.p
-A picked pandas dataframe of the modeling table for patients with RRT events.
 
 
 
